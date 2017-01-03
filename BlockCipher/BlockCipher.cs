@@ -8,7 +8,7 @@ namespace BlockCipher
 {
     class BlockCipher
     {
-        public string key;
+        private string key;
 
         public BlockCipher()
         {
@@ -17,21 +17,20 @@ namespace BlockCipher
             keyConvert[0] = 0;
             for (int i = 1; i < 8; i++)
             {
-                int temp = rnd.Next(0, 2);
+                int temp = rnd.Next(0, 2); // random 0 or 1
                 keyConvert[i] = (byte)temp;
             }
             key = String.Join("", keyConvert);
+            key = "00101101"; // for testing purpose
         }
-
-        
-
-        public static string ASCIIToBinary(string asciiString)
+               
+        private static string ASCIIToBinary(string asciiString)
         {
             byte[] data = Encoding.ASCII.GetBytes(asciiString);
             return string.Join(" ", data.Select(byt => Convert.ToString(byt, 2).PadLeft(8, '0')));
         }
 
-        public static string BinaryToASCII(string binaryString)
+        private static string BinaryToASCII(string binaryString)
         {
             string[] binaryStringData = binaryString.Split(' ');
             byte[] resultData = new byte[binaryStringData.Length];
@@ -43,10 +42,41 @@ namespace BlockCipher
 
             return Encoding.ASCII.GetString(resultData);
         }
+        
 
-        //public string Encrypt(string plaintext)
-        //{
+        public string Encrypt(string plainText)
+        {
+            //Convert plain text to Binary
+            plainText = ASCIIToBinary(plainText);
+            //bind binary plain text into an array of string
+            string[] plainTextData = plainText.Split(' ');
+            //innate a variable to hold result
+            string result = "";
 
-        //}
+            for (int i = 0; i < plainTextData.Length; i++)
+            {
+                //for each character, we xor with key data
+                byte[] tempResult = new byte[8];
+
+                for (int j = 0; j < 8; j++)
+                {
+                    int x = int.Parse(plainTextData[i][j].ToString());
+                    int y = int.Parse(key[j].ToString());
+                    tempResult[j] = (byte)(x + y);
+                    if (tempResult[j] == 2)
+                    {
+                        tempResult[j] = 0;
+                    }
+                }
+                result += string.Join("", tempResult);
+                result += " ";
+            }
+            //after the loop, we have a space that need to trim at the end of the result string
+            result = result.TrimEnd();
+            //now change the result, that in binary string, to ascii string
+            result = BinaryToASCII(result);
+            
+            return result;
+        }
     }
 }

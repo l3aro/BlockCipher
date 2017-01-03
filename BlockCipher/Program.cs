@@ -12,12 +12,16 @@ namespace BlockCipher
         {
             BlockCipher BlockCipher = new BlockCipher();
 
-            Console.Write(BlockCipher.key);
+            Console.Write("Nhap chuoi can ma hoa: ");
+            string plainText = Console.ReadLine();
 
-            string tmp = "Hoai";
-            tmp = BlockCipher.ASCIIToBinary(tmp);
-            Console.ReadKey();
-            tmp = BlockCipher.BinaryToASCII(tmp);
+            while (plainText == "")
+            {
+                Console.Write("Chuoi vua nhap khong co ki tu nao! Nhap lai: ");
+                plainText = Console.ReadLine();
+            }
+
+            string encrypted = BlockCipher.Encrypt(plainText);
 
             Console.ReadKey();
         }
