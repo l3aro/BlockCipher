@@ -21,7 +21,6 @@ namespace BlockCipher
                 keyConvert[i] = (byte)temp;
             }
             key = String.Join("", keyConvert);
-            key = "00101101"; // for testing purpose
         }
                
         private static string ASCIIToBinary(string asciiString)
@@ -76,6 +75,41 @@ namespace BlockCipher
             //now change the result, that in binary string, to ascii string
             result = BinaryToASCII(result);
             
+            return result;
+        }
+
+        public string Decrypt(string encrypted)
+        {
+            //Convert encrypted text to Binary
+            encrypted = ASCIIToBinary(encrypted);
+            //bind binary encrypted text into an array of string
+            string[] plainTextData = encrypted.Split(' ');
+            //innate a variable to hold result
+            string result = "";
+
+            for (int i = 0; i < plainTextData.Length; i++)
+            {
+                //for each character, we xor with key data
+                byte[] tempResult = new byte[8];
+
+                for (int j = 0; j < 8; j++)
+                {
+                    int x = int.Parse(plainTextData[i][j].ToString());
+                    int y = int.Parse(key[j].ToString());
+                    tempResult[j] = (byte)(x + y);
+                    if (tempResult[j] == 2)
+                    {
+                        tempResult[j] = 0;
+                    }
+                }
+                result += string.Join("", tempResult);
+                result += " ";
+            }
+            //after the loop, we have a space that need to trim at the end of the result string
+            result = result.TrimEnd();
+            //now change the result, that in binary string, to ascii string
+            result = BinaryToASCII(result);
+
             return result;
         }
     }

@@ -22,6 +22,10 @@ namespace BlockCipher
             }
 
             string encrypted = BlockCipher.Encrypt(plainText);
+            Console.WriteLine("Chuoi da ma hoa la:\n{0}", encrypted);
+
+            string decrypted = BlockCipher.Decrypt(encrypted);
+            Console.WriteLine("Chuoi da giai ma la:\n{0}", decrypted);           
 
             Console.ReadKey();
         }
