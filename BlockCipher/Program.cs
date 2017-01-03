@@ -10,6 +10,11 @@ namespace BlockCipher
     {
         static void Main(string[] args)
         {
+            BlockCipher BlockCipher = new BlockCipher();
+
+            Console.Write(BlockCipher.key);
+
+            Console.ReadKey();
         }
     }
 }
