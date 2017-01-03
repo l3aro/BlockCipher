@@ -14,6 +14,11 @@ namespace BlockCipher
 
             Console.Write(BlockCipher.key);
 
+            string tmp = "Hoai";
+            tmp = BlockCipher.ASCIIToBinary(tmp);
+            Console.ReadKey();
+            tmp = BlockCipher.BinaryToASCII(tmp);
+
             Console.ReadKey();
         }
     }
