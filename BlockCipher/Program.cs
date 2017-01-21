@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlockCipher
 {
@@ -21,10 +17,12 @@ namespace BlockCipher
                 plainText = Console.ReadLine();
             }
 
-            string encrypted = BlockCipher.Encrypt(plainText);
+            string key = BlockCipher.GenerateNewKey();
+
+            string encrypted = BlockCipher.Encrypt(plainText, key);
             Console.WriteLine("Chuoi da ma hoa la:\n{0}", encrypted);
 
-            string decrypted = BlockCipher.Decrypt(encrypted);
+            string decrypted = BlockCipher.Decrypt(encrypted, key);
             Console.WriteLine("Chuoi da giai ma la:\n{0}", decrypted);           
 
             Console.ReadKey();

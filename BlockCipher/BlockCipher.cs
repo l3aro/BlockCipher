@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BlockCipher
 {
     class BlockCipher
     {
-        private string key;
+        public BlockCipher() { }
 
-        public BlockCipher()
+        public string GenerateNewKey()
         {
             Random rnd = new Random();
             byte[] keyConvert = new byte[8];
@@ -20,7 +18,7 @@ namespace BlockCipher
                 int temp = rnd.Next(0, 2); // random 0 or 1
                 keyConvert[i] = (byte)temp;
             }
-            key = String.Join("", keyConvert);
+            return string.Join("", keyConvert);
         }
                
         private static string ASCIIToBinary(string asciiString)
@@ -43,7 +41,7 @@ namespace BlockCipher
         }
         
 
-        public string Encrypt(string plainText)
+        public string Encrypt(string plainText, string key)
         {
             //Convert plain text to Binary
             plainText = ASCIIToBinary(plainText);
@@ -78,7 +76,7 @@ namespace BlockCipher
             return result;
         }
 
-        public string Decrypt(string encrypted)
+        public string Decrypt(string encrypted, string key)
         {
             //Convert encrypted text to Binary
             encrypted = ASCIIToBinary(encrypted);
